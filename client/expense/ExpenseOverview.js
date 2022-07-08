@@ -23,11 +23,11 @@ const useStyles = makeStyles(theme => ({
     fontSize: '4em',
     margin: 20,
     marginBottom: 30,
-    backgroundColor: '#01579b',
-    color: '#70f0ae',
+    backgroundColor: '#769FCD',
+    color: '#F7FBFC',
     textAlign: 'center',
     borderRadius: '50%',
-    border: '10px double #70f0ae',
+    border: '10px double #F7FBFC',
     fontWeight: 300
   },
   categorySection: {

@@ -43,8 +43,8 @@ export default function Home(){
       } 
       { !auth.isAuthenticated() && typeof window !== "undefined" && 
         (<Card className={classes.card}>
-          <Typography variant="h6" className={classes.title}>
-            Welcome
+          <Typography variant="h6" className={classes.title} style={{fontSize: '1em'}}>
+            <em>Never spend your money before you have it.</em> -Thomas Jefferson
           </Typography>
           <CardMedia className={classes.media} image={moneyImg} title="Money"/>
 
