@@ -50,7 +50,7 @@ export default function Home(){
 
           <CardContent>
             <Typography variant="body1" component="p">
-              Welcome to the Pochi Expense Tracker. <Link to='/signup'>Sign up</Link> or <Link to='/signin'>sign in</Link> to get started.
+              Welcome to the Pochi, your reliable expense tracker. <Link to='/signup'>Sign up</Link> or <Link to='/signin'>sign in</Link> to get started.
             </Typography>
           </CardContent>
         </Card>)
