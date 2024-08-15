@@ -1,11 +1,11 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import HomeIcon from "@material-ui/icons/Home";
-import AddIcon from "@material-ui/icons/AddBoxRounded";
-import Button from "@material-ui/core/Button";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import HomeIcon from "@mui/icons-material//Home";
+import AddIcon from "@mui/icons-material//AddBoxRounded";
+import Button from "@mui/material/Button";
 import auth from "./../auth/auth-helper";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 

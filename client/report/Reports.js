@@ -1,6 +1,6 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
+import { makeStyles } from "@mui/styles";
+import Divider from "@mui/material/Divider";
 import CategoryPie from "./CategoryPie";
 import YearlyBar from "./YearlyBar";
 import MonthlyScatter from "./MonthlyScatter";

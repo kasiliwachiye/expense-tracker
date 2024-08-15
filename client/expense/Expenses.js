@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Edit from "@material-ui/icons/Edit";
+import { makeStyles } from "@mui/styles";
+import ExpansionPanel from "@mui/material/ExpansionPanel";
+import ExpansionPanelSummary from "@mui/material/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@mui/material/ExpansionPanelDetails";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Edit from "@mui/icons-material//Edit";
 import auth from "../auth/auth-helper";
 import { listByUser, update } from "./api-expense.js";
 import DeleteExpense from "./DeleteExpense";
-import Icon from "@material-ui/core/Icon";
+import Icon from "@mui/material/Icon";
 import { Redirect } from "react-router-dom";
 import DateFnsUtils from "@date-io/date-fns";
-import {
-  DatePicker,
-  DateTimePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+import { DatePicker, DateTimePicker, MuiPickersUtilsProvider } from "@mui/lab";
 
 const useStyles = makeStyles((theme) => ({
   root: {

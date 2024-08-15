@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@mui/styles";
+import Typography from "@mui/material/Typography";
 import auth from "../auth/auth-helper";
 import DateFnsUtils from "@date-io/date-fns";
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { DatePicker, MuiPickersUtilsProvider } from "@mui/lab";
 import { yearlyExpenses } from "./../expense/api-expense.js";
 import { VictoryTheme, VictoryAxis, VictoryBar, VictoryChart } from "victory";
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
+import { makeStyles } from "@mui/styles";
+import Card from "@mui/material/Card";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 import { Link } from "react-router-dom";
 import auth from "../auth/auth-helper";
 import {
@@ -113,7 +113,7 @@ export default function ExpenseOverview() {
       abortController.abort();
     };
   }, []);
-  
+
   const indicateExpense = (values) => {
     let color = "#4f83cc";
     if (values.total) {
