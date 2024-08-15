@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "@emotion/styled";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -7,48 +8,41 @@ import auth from "../auth/auth-helper";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Icon from "@mui/material/Icon";
-import { makeStyles } from "@mui/styles";
 import { create } from "./api-expense.js";
 import { Link, Redirect } from "react-router-dom";
 import DateFnsUtils from "@date-io/date-fns";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@mui/lab";
 
-const useStyles = makeStyles((theme) => ({
-  card: {
-    maxWidth: 600,
-    margin: "auto",
-    textAlign: "center",
-    marginTop: theme.spacing(5),
-    paddingBottom: theme.spacing(2),
-  },
-  error: {
-    verticalAlign: "middle",
-  },
-  title: {
-    marginTop: theme.spacing(2),
-    color: theme.palette.openTitle,
-    fontSize: "1em",
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 300,
-  },
-  submit: {
-    margin: "auto",
-    marginBottom: theme.spacing(2),
-  },
-  input: {
-    display: "none",
-  },
-  filename: {
-    marginLeft: "10px",
-  },
-}));
+const StyledCard = styled(Card)({
+  maxWidth: 600,
+  margin: "auto",
+  textAlign: "center",
+  marginTop: 32,
+  paddingBottom: 16,
+});
+
+const StyledTitle = styled(Typography)({
+  marginTop: 16,
+  color: "#3f51b5", // Replaces theme.palette.openTitle
+  fontSize: "1em",
+});
+
+const StyledTextField = styled(TextField)({
+  marginLeft: 8,
+  marginRight: 8,
+  width: 300,
+});
+
+const SubmitButton = styled(Button)({
+  margin: "auto",
+  marginBottom: 16,
+});
+
+const ErrorIcon = styled(Icon)({
+  verticalAlign: "middle",
+});
 
 function NewExpense() {
-  const classes = useStyles();
-
   const [values, setValues] = useState({
     title: "",
     category: "",
@@ -94,35 +88,32 @@ function NewExpense() {
 
   return (
     <div>
-      <Card className={classes.card}>
+      <StyledCard>
         <CardContent>
-          <Typography type="headline" component="h2" className={classes.title}>
+          <StyledTitle variant="h6" component="h2">
             Expense Record
-          </Typography>
+          </StyledTitle>
           <br />
-          <TextField
+          <StyledTextField
             id="title"
             label="Title"
-            className={classes.textField}
             value={values.title}
             onChange={handleChange("title")}
             margin="normal"
           />
           <br />
-          <TextField
+          <StyledTextField
             id="amount"
             label="Amount ($)"
-            className={classes.textField}
             value={values.amount}
             onChange={handleChange("amount")}
             margin="normal"
             type="number"
           />
           <br />
-          <TextField
+          <StyledTextField
             id="category"
             label="Category"
-            className={classes.textField}
             value={values.category}
             onChange={handleChange("category")}
             margin="normal"
@@ -132,7 +123,6 @@ function NewExpense() {
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DateTimePicker
               label="Incurred on"
-              className={classes.textField}
               views={["year", "month", "date"]}
               value={values.incurred_on}
               onChange={handleDateChange}
@@ -141,40 +131,37 @@ function NewExpense() {
           </MuiPickersUtilsProvider>
           <br />
           <br />
-          <TextField
+          <StyledTextField
             id="multiline-flexible"
             label="Notes"
             multiline
             rows="2"
             value={values.notes}
             onChange={handleChange("notes")}
-            className={classes.textField}
             margin="normal"
           />
-          <br /> <br />
+          <br />
+          <br />
           {values.error && (
             <Typography component="p" color="error">
-              <Icon color="error" className={classes.error}>
-                error
-              </Icon>
+              <ErrorIcon color="error">error</ErrorIcon>
               {values.error}
             </Typography>
           )}
         </CardContent>
         <CardActions>
-          <Button
+          <SubmitButton
             color="primary"
             variant="contained"
             onClick={clickSubmit}
-            className={classes.submit}
           >
             Submit
-          </Button>
-          <Link to="/myauctions" className={classes.submit}>
+          </SubmitButton>
+          <Link to="/myauctions">
             <Button variant="contained">Cancel</Button>
           </Link>
         </CardActions>
-      </Card>
+      </StyledCard>
     </div>
   );
 }

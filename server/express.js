@@ -13,12 +13,14 @@ import expenseRoutes from "./routes/expense.routes";
 // modules for server side rendering
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-import MainRouter from "./../client/MainRouter";
+import { CacheProvider } from "@emotion/react";
+import createEmotionServer from "@emotion/server/create-instance";
 import { StaticRouter } from "react-router-dom";
+import createCache from "@emotion/cache";
 
-import { ServerStyleSheets, ThemeProvider } from "@mui/material/styles";
-
+import MainRouter from "./../client/MainRouter";
 import theme from "./../client/theme";
+import { ThemeProvider } from "@mui/material/styles";
 
 //comment out before building for production
 // import devBundle from './devBundle'
@@ -47,21 +49,28 @@ app.use("/", authRoutes);
 app.use("/", expenseRoutes);
 
 app.get("*", (req, res) => {
-  const sheets = new ServerStyleSheets();
+  const cache = createCache({ key: "css", prepend: true });
+  const { extractCriticalToChunks, constructStyleTagsFromChunks } =
+    createEmotionServer(cache);
+
   const context = {};
   const markup = ReactDOMServer.renderToString(
-    sheets.collect(
+    <CacheProvider value={cache}>
       <StaticRouter location={req.url} context={context}>
         <ThemeProvider theme={theme}>
           <MainRouter />
         </ThemeProvider>
       </StaticRouter>
-    )
+    </CacheProvider>
   );
+
+  const emotionChunks = extractCriticalToChunks(markup);
+  const css = constructStyleTagsFromChunks(emotionChunks);
+
   if (context.url) {
     return res.redirect(303, context.url);
   }
-  const css = sheets.toString();
+
   res.status(200).send(
     Template({
       markup: markup,

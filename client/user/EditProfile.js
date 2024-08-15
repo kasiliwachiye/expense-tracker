@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styled from "@emotion/styled";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -6,39 +7,35 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Icon from "@mui/material/Icon";
-import { makeStyles } from "@mui/styles";
 import auth from "./../auth/auth-helper";
 import { read, update } from "./api-user.js";
 import { Redirect } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-  card: {
-    maxWidth: 600,
-    margin: "auto",
-    textAlign: "center",
-    marginTop: theme.spacing(5),
-    paddingBottom: theme.spacing(2),
-  },
-  title: {
-    margin: theme.spacing(2),
-    color: theme.palette.protectedTitle,
-  },
-  error: {
-    verticalAlign: "middle",
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 300,
-  },
-  submit: {
-    margin: "auto",
-    marginBottom: theme.spacing(2),
-  },
-}));
+const StyledCard = styled(Card)({
+  maxWidth: 600,
+  margin: "auto",
+  textAlign: "center",
+  marginTop: 32,
+  paddingBottom: 16,
+});
+
+const StyledTitle = styled(Typography)({
+  margin: 16,
+  color: "#3f51b5", // Replaces theme.palette.protectedTitle
+});
+
+const StyledTextField = styled(TextField)({
+  marginLeft: 8,
+  marginRight: 8,
+  width: 300,
+});
+
+const SubmitButton = styled(Button)({
+  margin: "auto",
+  marginBottom: 16,
+});
 
 function EditProfile({ match }) {
-  const classes = useStyles();
   const [values, setValues] = useState({
     name: "",
     password: "",
@@ -93,6 +90,7 @@ function EditProfile({ match }) {
       }
     });
   };
+
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
@@ -102,35 +100,30 @@ function EditProfile({ match }) {
   }
 
   return (
-    <Card className={classes.card}>
+    <StyledCard>
       <CardContent>
-        <Typography variant="h6" className={classes.title}>
-          Edit Profile
-        </Typography>
-        <TextField
+        <StyledTitle variant="h6">Edit Profile</StyledTitle>
+        <StyledTextField
           id="name"
           label="Name"
-          className={classes.textField}
           value={values.name}
           onChange={handleChange("name")}
           margin="normal"
         />
         <br />
-        <TextField
+        <StyledTextField
           id="email"
           type="email"
           label="Email"
-          className={classes.textField}
           value={values.email}
           onChange={handleChange("email")}
           margin="normal"
         />
         <br />
-        <TextField
+        <StyledTextField
           id="password"
           type="password"
           label="Password"
-          className={classes.textField}
           value={values.password}
           onChange={handleChange("password")}
           margin="normal"
@@ -138,7 +131,7 @@ function EditProfile({ match }) {
         <br />{" "}
         {values.error && (
           <Typography component="p" color="error">
-            <Icon color="error" className={classes.error}>
+            <Icon color="error" style={{ verticalAlign: "middle" }}>
               error
             </Icon>
             {values.error}
@@ -146,16 +139,11 @@ function EditProfile({ match }) {
         )}
       </CardContent>
       <CardActions>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={clickSubmit}
-          className={classes.submit}
-        >
+        <SubmitButton color="primary" variant="contained" onClick={clickSubmit}>
           Submit
-        </Button>
+        </SubmitButton>
       </CardActions>
-    </Card>
+    </StyledCard>
   );
 }
 

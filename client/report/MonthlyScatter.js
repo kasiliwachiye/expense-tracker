@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@mui/styles";
+import styled from "@emotion/styled";
 import Typography from "@mui/material/Typography";
 import auth from "../auth/auth-helper";
 import DateFnsUtils from "@date-io/date-fns";
 import { DatePicker, MuiPickersUtilsProvider } from "@mui/lab";
-import { plotExpenses } from "./../expense/api-expense.js";
 import {
   VictoryTheme,
   VictoryScatter,
@@ -13,20 +12,18 @@ import {
   VictoryLabel,
 } from "victory";
 
-const useStyles = makeStyles((theme) => ({
-  title: {
-    padding: `32px ${theme.spacing(2.5)}px 2px`,
-    color: "#2bbd7e",
-    display: "inline",
-  },
+const TitleTypography = styled(Typography)(({ theme }) => ({
+  padding: `32px ${theme.spacing(2.5)}px 2px`,
+  color: "#2bbd7e",
+  display: "inline",
 }));
 
 function MonthlyScatter() {
-  const classes = useStyles();
   const [error, setError] = useState("");
   const [plot, setPlot] = useState([]);
   const [month, setMonth] = useState(new Date());
   const jwt = auth.isAuthenticated();
+
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
@@ -56,9 +53,7 @@ function MonthlyScatter() {
 
   return (
     <div style={{ marginBottom: 20 }}>
-      <Typography variant="h6" className={classes.title}>
-        Expenses scattered over{" "}
-      </Typography>
+      <TitleTypography variant="h6">Expenses scattered over </TitleTypography>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <DatePicker
           value={month}

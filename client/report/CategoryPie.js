@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@mui/styles";
+import styled from "@emotion/styled";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import auth from "../auth/auth-helper";
@@ -8,24 +8,23 @@ import { DatePicker, MuiPickersUtilsProvider } from "@mui/lab";
 import { averageCategories } from "./../expense/api-expense.js";
 import { VictoryPie, VictoryTheme, VictoryLabel } from "victory";
 
-const useStyles = makeStyles((theme) => ({
-  title: {
-    padding: `16px ${theme.spacing(2.5)}px 2px`,
-    color: "#2bbd7e",
-    display: "inline",
-  },
-  search: {
-    display: "flex",
-    alignItems: "center",
-  },
-  textField: {
-    margin: "8px 16px",
-    width: 240,
-  },
-}));
+const Title = styled(Typography)({
+  padding: "16px 20px 2px",
+  color: "#2bbd7e",
+  display: "inline",
+});
 
-function Reports() {
-  const classes = useStyles();
+const SearchContainer = styled("div")({
+  display: "flex",
+  alignItems: "center",
+});
+
+const StyledDatePicker = styled(DatePicker)({
+  margin: "8px 16px",
+  width: 240,
+});
+
+function CategoryPie() {
   const [error, setError] = useState("");
   const [expenses, setExpenses] = useState([]);
   const jwt = auth.isAuthenticated();
@@ -34,6 +33,7 @@ function Reports() {
     m = date.getMonth();
   const [firstDay, setFirstDay] = useState(new Date(y, m, 1));
   const [lastDay, setLastDay] = useState(new Date(y, m + 1, 0));
+
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
@@ -54,12 +54,13 @@ function Reports() {
   }, []);
 
   const handleDateChange = (name) => (date) => {
-    if (name == "firstDay") {
+    if (name === "firstDay") {
       setFirstDay(date);
     } else {
       setLastDay(date);
     }
   };
+
   const searchClicked = () => {
     averageCategories(
       { firstDay: firstDay, lastDay: lastDay },
@@ -75,33 +76,29 @@ function Reports() {
 
   return (
     <div>
-      <div className={classes.search}>
-        <Typography variant="h6" className={classes.title}>
-          Expenditures per category{" "}
-        </Typography>
+      <SearchContainer>
+        <Title variant="h6">Expenditures per category</Title>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <DatePicker
+          <StyledDatePicker
             disableFuture
             format="dd/MM/yyyy"
             label="FROM"
             views={["year", "month", "date"]}
             value={firstDay}
-            className={classes.textField}
             onChange={handleDateChange("firstDay")}
           />
-          <DatePicker
+          <StyledDatePicker
             format="dd/MM/yyyy"
             label="TO"
             views={["year", "month", "date"]}
             value={lastDay}
-            className={classes.textField}
             onChange={handleDateChange("lastDay")}
           />
         </MuiPickersUtilsProvider>
         <Button variant="contained" color="secondary" onClick={searchClicked}>
           GO
         </Button>
-      </div>
+      </SearchContainer>
       <div style={{ width: 550, margin: "auto" }}>
         <svg viewBox="0 0 320 320">
           <VictoryPie
@@ -140,4 +137,4 @@ function Reports() {
   );
 }
 
-export default Reports;
+export default CategoryPie;

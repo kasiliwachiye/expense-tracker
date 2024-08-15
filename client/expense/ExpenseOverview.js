@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@mui/styles";
+import styled from "@emotion/styled";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
@@ -10,71 +10,78 @@ import {
   expenseByCategory,
 } from "./../expense/api-expense.js";
 
-const useStyles = makeStyles((theme) => ({
-  card: {
-    maxWidth: 800,
-    margin: "auto",
-    marginTop: theme.spacing(5),
-    marginBottom: theme.spacing(5),
-  },
-  title2: {
-    padding: `32px ${theme.spacing(2.5)}px 2px`,
-    color: "#2bbd7e",
-  },
-  totalSpent: {
-    padding: "50px 40px",
-    fontSize: "4em",
-    margin: 20,
-    marginBottom: 30,
-    backgroundColor: "#769FCD",
-    color: "#F7FBFC",
-    textAlign: "center",
-    borderRadius: "50%",
-    border: "10px double #F7FBFC",
-    fontWeight: 300,
-  },
-  categorySection: {
-    padding: 25,
-    paddingTop: 16,
-    margin: "auto",
-  },
-  catDiv: {
-    height: "4px",
-    margin: "0",
-    marginBottom: 8,
-  },
-  val: {
-    width: 200,
-    display: "inline-table",
-    textAlign: "center",
-    margin: 2,
-  },
-  catTitle: {
-    display: "inline-block",
-    padding: 10,
-    backgroundColor: "#f4f6f9",
-  },
-  catHeading: {
-    color: "#6b6b6b",
-    fontSize: "1.15em",
-    backgroundColor: "#f7f7f7",
-    padding: "4px 0",
-  },
-  spent: {
-    margin: "16px 10px 10px 0",
-    padding: "10px 30px",
-    border: "4px solid #58bd7f38",
-    borderRadius: "0.5em",
-  },
-  day: {
-    fontSize: "0.9em",
-    fontStyle: "italic",
-    color: "#696969",
-  },
+const StyledCard = styled(Card)(({ theme }) => ({
+  maxWidth: 800,
+  margin: "auto",
+  marginTop: theme.spacing(5),
+  marginBottom: theme.spacing(5),
+}));
+
+const Title2 = styled(Typography)(({ theme }) => ({
+  padding: `32px ${theme.spacing(2.5)}px 2px`,
+  color: "#2bbd7e",
+  textAlign: "center",
+}));
+
+const TotalSpent = styled(Typography)(({ theme }) => ({
+  padding: "50px 40px",
+  fontSize: "4em",
+  margin: 20,
+  marginBottom: 30,
+  backgroundColor: "#769FCD",
+  color: "#F7FBFC",
+  textAlign: "center",
+  borderRadius: "50%",
+  border: "10px double #F7FBFC",
+  fontWeight: 300,
+}));
+
+const CategorySection = styled("div")(({ theme }) => ({
+  padding: 25,
+  paddingTop: 16,
+  margin: "auto",
+}));
+
+const CatDiv = styled(Divider)(({ theme }) => ({
+  height: "4px",
+  margin: "0",
+  marginBottom: 8,
+}));
+
+const Val = styled(Typography)(({ theme }) => ({
+  width: 200,
+  display: "inline-table",
+  textAlign: "center",
+  margin: 2,
+}));
+
+const CatTitle = styled(Typography)(({ theme }) => ({
+  display: "inline-block",
+  padding: 10,
+  backgroundColor: "#f4f6f9",
+}));
+
+const CatHeading = styled(Typography)(({ theme }) => ({
+  color: "#6b6b6b",
+  fontSize: "1.15em",
+  backgroundColor: "#f7f7f7",
+  padding: "4px 0",
+}));
+
+const Spent = styled(Typography)(({ theme }) => ({
+  margin: "16px 10px 10px 0",
+  padding: "10px 30px",
+  border: "4px solid #58bd7f38",
+  borderRadius: "0.5em",
+}));
+
+const Day = styled(Typography)(({ theme }) => ({
+  fontSize: "0.9em",
+  fontStyle: "italic",
+  color: "#696969",
 }));
 
 export default function ExpenseOverview() {
-  const classes = useStyles();
   const [expensePreview, setExpensePreview] = useState({
     month: 0,
     today: 0,
@@ -129,15 +136,10 @@ export default function ExpenseOverview() {
   };
 
   return (
-    <Card className={classes.card}>
-      <Typography
-        variant="h4"
-        className={classes.title2}
-        color="textPrimary"
-        style={{ textAlign: "center" }}
-      >
+    <StyledCard>
+      <Title2 variant="h4" color="textPrimary">
         You've spent
-      </Typography>
+      </Title2>
       <div
         style={{
           display: "flex",
@@ -145,80 +147,66 @@ export default function ExpenseOverview() {
           alignItems: "center",
         }}
       >
-        <Typography component="span" className={classes.totalSpent}>
+        <TotalSpent component="span">
           ${expensePreview.month ? expensePreview.month.totalSpent : "0"}{" "}
           <span style={{ display: "block", fontSize: "0.3em" }}>
             so far this month
           </span>
-        </Typography>
+        </TotalSpent>
         <div style={{ margin: "20px 20px 20px 30px" }}>
-          <Typography variant="h5" className={classes.spent} color="primary">
+          <Spent variant="h5" color="primary">
             ${expensePreview.today ? expensePreview.today.totalSpent : "0"}{" "}
-            <span className={classes.day}>today</span>
-          </Typography>
-          <Typography variant="h5" className={classes.spent} color="primary">
+            <Day component="span">today</Day>
+          </Spent>
+          <Spent variant="h5" color="primary">
             $
             {expensePreview.yesterday
               ? expensePreview.yesterday.totalSpent
               : "0"}{" "}
-            <span className={classes.day}>yesterday </span>
-          </Typography>
+            <Day component="span">yesterday </Day>
+          </Spent>
           <Link to="/expenses/all">
             <Typography variant="h6">See more</Typography>
           </Link>
         </div>
       </div>
       <Divider />
-      <div className={classes.categorySection}>
+      <CategorySection>
         {expenseCategories.map((expense, index) => {
           return (
             <div
               key={index}
               style={{ display: "grid", justifyContent: "center" }}
             >
-              <Typography variant="h5" className={classes.catTitle}>
-                {expense._id}
-              </Typography>
-              <Divider
-                className={classes.catDiv}
+              <CatTitle variant="h5">{expense._id}</CatTitle>
+              <CatDiv
                 style={{
                   backgroundColor: indicateExpense(expense.mergedValues),
                 }}
               />
               <div>
-                <Typography
-                  component="span"
-                  className={`${classes.catHeading} ${classes.val}`}
-                >
+                <CatHeading component="span" className={Val}>
                   past average
-                </Typography>
-                <Typography
-                  component="span"
-                  className={`${classes.catHeading} ${classes.val}`}
-                >
+                </CatHeading>
+                <CatHeading component="span" className={Val}>
                   this month
-                </Typography>
-                <Typography
-                  component="span"
-                  className={`${classes.catHeading} ${classes.val}`}
-                >
+                </CatHeading>
+                <CatHeading component="span" className={Val}>
                   {expense.mergedValues.total &&
                   expense.mergedValues.total - expense.mergedValues.average > 0
                     ? "spent extra"
                     : "saved"}
-                </Typography>
+                </CatHeading>
               </div>
               <div style={{ marginBottom: 3 }}>
-                <Typography
+                <Val
                   component="span"
-                  className={classes.val}
                   style={{ color: "#595555", fontSize: "1.15em" }}
                 >
                   ${expense.mergedValues.average}
-                </Typography>
-                <Typography
+                </Val>
+                <Val
                   component="span"
-                  className={classes.val}
                   style={{
                     color: "#002f6c",
                     fontSize: "1.6em",
@@ -227,10 +215,9 @@ export default function ExpenseOverview() {
                   }}
                 >
                   ${expense.mergedValues.total ? expense.mergedValues.total : 0}
-                </Typography>
-                <Typography
+                </Val>
+                <Val
                   component="span"
-                  className={classes.val}
                   style={{ color: "#484646", fontSize: "1.25em" }}
                 >
                   $
@@ -240,13 +227,13 @@ export default function ExpenseOverview() {
                           expense.mergedValues.average
                       )
                     : expense.mergedValues.average}
-                </Typography>
+                </Val>
               </div>
               <Divider style={{ marginBottom: 10 }} />
             </div>
           );
         })}
-      </div>
-    </Card>
+      </CategorySection>
+    </StyledCard>
   );
 }

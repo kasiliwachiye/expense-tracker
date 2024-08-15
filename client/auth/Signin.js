@@ -6,39 +6,40 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Icon from "@mui/material/Icon";
-import { makeStyles } from "@mui/styles";
+import styled from "@emotion/styled";
 import auth from "./../auth/auth-helper";
 import { Redirect } from "react-router-dom";
 import { signin } from "./api-auth.js";
 
-const useStyles = makeStyles((theme) => ({
-  card: {
-    maxWidth: 600,
-    margin: "auto",
-    textAlign: "center",
-    marginTop: theme.spacing(5),
-    paddingBottom: theme.spacing(2),
-  },
-  error: {
-    verticalAlign: "middle",
-  },
-  title: {
-    marginTop: theme.spacing(2),
-    color: theme.palette.openTitle,
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 300,
-  },
-  submit: {
-    margin: "auto",
-    marginBottom: theme.spacing(2),
-  },
+const CardStyled = styled(Card)(({ theme }) => ({
+  maxWidth: 600,
+  margin: "auto",
+  textAlign: "center",
+  marginTop: theme.spacing(5),
+  paddingBottom: theme.spacing(2),
+}));
+
+const ErrorIcon = styled(Icon)({
+  verticalAlign: "middle",
+});
+
+const Title = styled(Typography)(({ theme }) => ({
+  marginTop: theme.spacing(2),
+  color: theme.palette.openTitle,
+}));
+
+const TextFieldStyled = styled(TextField)(({ theme }) => ({
+  marginLeft: theme.spacing(1),
+  marginRight: theme.spacing(1),
+  width: 300,
+}));
+
+const SubmitButton = styled(Button)(({ theme }) => ({
+  margin: "auto",
+  marginBottom: theme.spacing(2),
 }));
 
 export default function Signin(props) {
-  const classes = useStyles();
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -80,50 +81,39 @@ export default function Signin(props) {
   }
 
   return (
-    <Card className={classes.card}>
+    <CardStyled>
       <CardContent>
-        <Typography variant="h6" className={classes.title}>
-          Sign In
-        </Typography>
-        <TextField
+        <Title variant="h6">Sign In</Title>
+        <TextFieldStyled
           id="email"
           type="email"
           label="Email"
-          className={classes.textField}
           value={values.email}
           onChange={handleChange("email")}
           margin="normal"
         />
         <br />
-        <TextField
+        <TextFieldStyled
           id="password"
           type="password"
           label="Password"
-          className={classes.textField}
           value={values.password}
           onChange={handleChange("password")}
           margin="normal"
         />
-        <br />{" "}
+        <br />
         {values.error && (
           <Typography component="p" color="error">
-            <Icon color="error" className={classes.error}>
-              error
-            </Icon>
+            <ErrorIcon color="error">error</ErrorIcon>
             {values.error}
           </Typography>
         )}
       </CardContent>
       <CardActions>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={clickSubmit}
-          className={classes.submit}
-        >
+        <SubmitButton color="primary" variant="contained" onClick={clickSubmit}>
           Submit
-        </Button>
+        </SubmitButton>
       </CardActions>
-    </Card>
+    </CardStyled>
   );
 }

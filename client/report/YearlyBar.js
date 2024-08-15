@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@mui/styles";
+import styled from "@emotion/styled";
 import Typography from "@mui/material/Typography";
 import auth from "../auth/auth-helper";
 import DateFnsUtils from "@date-io/date-fns";
@@ -7,16 +7,13 @@ import { DatePicker, MuiPickersUtilsProvider } from "@mui/lab";
 import { yearlyExpenses } from "./../expense/api-expense.js";
 import { VictoryTheme, VictoryAxis, VictoryBar, VictoryChart } from "victory";
 
-const useStyles = makeStyles((theme) => ({
-  title: {
-    padding: `32px ${theme.spacing(2.5)}px 2px`,
-    color: "#2bbd7e",
-    display: "inline",
-  },
+const TitleTypography = styled(Typography)(({ theme }) => ({
+  padding: `32px ${theme.spacing(2.5)}px 2px`,
+  color: "#2bbd7e",
+  display: "inline",
 }));
 
 export default function Reports() {
-  const classes = useStyles();
   const [error, setError] = useState("");
   const [year, setYear] = useState(new Date());
   const [yearlyExpense, setYearlyExpense] = useState([]);
@@ -66,9 +63,9 @@ export default function Reports() {
 
   return (
     <div>
-      <Typography variant="h6" className={classes.title}>
+      <TitleTypography variant="h6">
         Your monthly expenditures in
-      </Typography>
+      </TitleTypography>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <DatePicker
           value={year}
