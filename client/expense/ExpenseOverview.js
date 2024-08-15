@@ -81,7 +81,9 @@ export default function ExpenseOverview() {
     yesterday: 0,
   });
   const [expenseCategories, setExpenseCategories] = useState([]);
+
   const jwt = auth.isAuthenticated();
+
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
@@ -96,6 +98,7 @@ export default function ExpenseOverview() {
       abortController.abort();
     };
   }, []);
+
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
@@ -110,6 +113,7 @@ export default function ExpenseOverview() {
       abortController.abort();
     };
   }, []);
+  
   const indicateExpense = (values) => {
     let color = "#4f83cc";
     if (values.total) {

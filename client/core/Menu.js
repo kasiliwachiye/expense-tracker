@@ -26,7 +26,7 @@ const isButtonActive = (location, path) => {
     };
 };
 
-const Menu = () => {
+function Menu() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -101,6 +101,6 @@ const Menu = () => {
       </Toolbar>
     </AppBar>
   );
-};
+}
 
 export default Menu;
